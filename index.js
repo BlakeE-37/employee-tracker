@@ -1,7 +1,8 @@
 const inquirer = require('inquirer');
 
-
-
+function viewAllDepartments() {
+    return
+}
 function viewAllRoles() {
     return
 }
@@ -21,7 +22,6 @@ function updateEmployeeRole() {
     return
 }
 
-
 function init() {
     inquirer
         .prompt([
@@ -36,19 +36,26 @@ function init() {
         .then((answer) => {
             switch (answer) {
                 case 'View all Departments':
-                    return
+                    viewAllDepartments();
+                    break;
                 case 'View all Roles':
-                    return
+                    viewAllRoles();
+                    break;
                 case 'View all Employees':
-                    return
+                    viewAllEmployees();
+                    break;
                 case 'Add a Department':
-                    return
+                    addDepartment();
+                    break;
                 case 'Add a Role':
-                    return
+                    addRole();
+                    break;
                 case 'Add an Employee':
-                    return
+                    addEmployee();
+                    break;
                 case 'Update an Employee Role':
-                    return
+                    updateEmployeeRole();
+                    break;
             };
         });
 };
