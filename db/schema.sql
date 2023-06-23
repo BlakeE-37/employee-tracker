@@ -12,6 +12,13 @@ CREATE TABLE roles(
     id INT,
     department_id INT,
     role_name VARCHAR(30),
+    salary INT,
     FOREIGN KEY(department_id)
     REFERENCES department(id)
+);
+
+CREATE TABLE employee(
+    id int,
+    full_name VARCHAR(30)
+    
 )

@@ -1,10 +1,25 @@
 const inquirer = require('inquirer');
+const mysql = require('mysql2');
+
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'business_db',
+    rowsAsArray: true
+})
 
 function viewAllDepartments() {
-    return
-}
+    db.query('SELECT * FROM department', (err, results) => {
+        console.log(results);
+        init();
+    });
+};
 function viewAllRoles() {
-    return
+    db.query('SELECT roles.id, roles.role_name,  roles.salary, department.department_name FROM roles JOIN department ON roles.department_id = department.id', (err, results) => {
+        console.log(results);
+        init();
+    });
 }
 function viewAllEmployees() {
     return
@@ -29,12 +44,12 @@ function init() {
                 type: 'list',
                 choices: ['View all Departments', 'View all Roles', 'View all Employees', 'Add a Department', 'Add a Role', 'Add an Employee', 'Update an Employee Role'],
                 message: 'What would you like to do?',
-                name: 'title',
+                name: 'question',
             }
         ])
         //use the answer to call the coresponding function
         .then((answer) => {
-            switch (answer) {
+            switch (answer.question) {
                 case 'View all Departments':
                     viewAllDepartments();
                     break;
@@ -56,6 +71,8 @@ function init() {
                 case 'Update an Employee Role':
                     updateEmployeeRole();
                     break;
+                default:
+                    console.log(answer)
             };
         });
 };
