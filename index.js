@@ -11,7 +11,7 @@ const db = mysql.createConnection({
 
 function viewAllDepartments() {
     db.query('SELECT * FROM department', (err, results) => {
-        // convert array of array to an array of objects to better display in the console.table()
+        // convert array of array to an array of objects to better display in the console.table() -- saved to the data array
         var data = [];
         results.forEach(result => {
             let obj = { 'Department ID': result[0], 'Department Name': result[1] }
@@ -24,7 +24,13 @@ function viewAllDepartments() {
 };
 function viewAllRoles() {
     db.query('SELECT roles.id, roles.role_name,  roles.salary, department.department_name FROM roles JOIN department ON roles.department_id = department.id', (err, results) => {
-        console.log(results);
+        // convert array of array to an array of objects to better display in the console.table() -- saved to the data array
+        var data = [];
+        results.forEach(result => {
+            let obj = { 'Role ID': result[0], 'Role Title': result[1], 'Salary': result[2], 'Department': result[3] }
+            data.push(obj)
+        })
+        console.table(data);
         init();
     });
 }
