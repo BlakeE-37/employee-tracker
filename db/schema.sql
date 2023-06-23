@@ -17,8 +17,19 @@ CREATE TABLE roles(
     REFERENCES department(id)
 );
 
-CREATE TABLE employee(
-    id int,
+CREATE TABLE employees(
+    id int NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(20),
+    last_name VARCHAR(20),
+    role_id INT,
+    FOREIGN KEY(role_id)
+    REFERENCES roles(id)
+)
+
+CREATE TABLE managers(
+    id int NOT NULL AUTO_INCREMENT,
     full_name VARCHAR(30)
-    
+    department_id INT,
+    FOREIGN KEY(department_id)
+    REFERENCES department(id)
 )

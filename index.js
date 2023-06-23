@@ -35,6 +35,7 @@ function viewAllRoles() {
     });
 }
 function viewAllEmployees() {
+    db.query('SELECT ')
     return
 }
 function addDepartment() {
