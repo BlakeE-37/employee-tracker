@@ -11,7 +11,14 @@ const db = mysql.createConnection({
 
 function viewAllDepartments() {
     db.query('SELECT * FROM department', (err, results) => {
-        console.log(results);
+        // convert array of array to an array of objects to better display in the console.table()
+        var data = [];
+        results.forEach(result => {
+            let obj = { 'Department ID': result[0], 'Department Name': result[1] }
+            data.push(obj)
+        })
+        // console.log(data)
+        console.table(data);
         init();
     });
 };
