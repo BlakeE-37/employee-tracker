@@ -55,7 +55,9 @@ function addDepartment() {
                 name: 'newDepartment'
             }
         ]).then(response => {
-            db.query(`INSERT INTO department (department_name) VALUES ("${response.newDepartment}")`)
+            db.query(`INSERT INTO department (department_name) VALUES ("${response.newDepartment}")`, (err, results) => {
+                if (err) throw err
+            });
             console.log("\nNew department added succesfully.\n")
             init()
         })
@@ -66,13 +68,33 @@ function addRole() {
             {
                 type: 'input',
                 message: 'What is the name of the new role?',
-                name: 'newRole'
+                name: 'roleName'
+            },
+            {
+                type: 'input',
+                message: 'What is the salary of the new role?',
+                name: 'roleSalary'
+            },
+            {
+                type: 'input',
+                message: 'What department does this role belong to?',
+                name: 'department'
             }
         ]).then(response => {
-            db.query(`INSERT INTO department (department_name) VALUES ("${response.newDepartment}")`)
-            console.log("\nNew department added succesfully.\n")
+            // use the typed department name to get the department ID later
+            db.query(`SELECT * FROM department WHERE department_name="${response.department}"`, (err, results) => {
+                if (err) throw err;
+                // retrieve the deparment ID
+                let departmentID = results[0][0];
+
+                // INSERT query with new role data
+                db.query(`INSERT INTO roles (role_name, salary, department_id) VALUES ("${response.roleName}", ${response.roleSalary}, ${departmentID})`, (err, results) => {
+                    if (err) throw err
+                });
+            });
+            console.log("\nNew role added succesfully.\n")
             init()
-        })
+        });
 }
 function addEmployee() {
     return
