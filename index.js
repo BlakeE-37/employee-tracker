@@ -153,9 +153,30 @@ function updateEmployeeRole() {
                 let fname = nameArray[0];
                 let lname = nameArray[1];
 
-                db.query('', (err, results) => {
-
+                // Select what the new role asssigned will be
+                db.query('SELECT * FROM roles', (err, results) => {
+                    if (err) throw err;
+                    let roleNames = [];
+                    // create a list to ask what role they want to change to
+                    results.forEach(role => {
+                        let roleName = role[2];
+                        roleNames.push(roleName);
+                    })
+                    inquirer
+                        .prompt([
+                            {
+                                type: 'list',
+                                choices: roleNames,
+                                message: 'Select a new role to assign:',
+                                name: 'role'
+                            }
+                        ]).then(role => {
+                            console.log(role)
+                        })
                 })
+                // db.query(`UPDATE employees SET role_id=${fname} WHERE first_name="${fname}" AND last_name="${lname}"`, (err, results) => {
+                //     if (err) throw err;
+                // });
             });
     });
 }
