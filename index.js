@@ -50,7 +50,18 @@ function addDepartment() {
     return
 }
 function addRole() {
-    return
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                message: 'What is the name of the new role?',
+                name: 'newRole'
+            }
+        ]).then(response => {
+            db.query(`INSERT INTO department (department_name) VALUES ("${response.newDepartment}")`)
+            console.log("\nNew department added succesfully.\n")
+            init()
+        })
 }
 function addEmployee() {
     return
