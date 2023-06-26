@@ -47,7 +47,18 @@ function viewAllEmployees() {
     });
 };
 function addDepartment() {
-    return
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                message: 'What is the name of the new department?',
+                name: 'newDepartment'
+            }
+        ]).then(response => {
+            db.query(`INSERT INTO department (department_name) VALUES ("${response.newDepartment}")`)
+            console.log("\nNew department added succesfully.\n")
+            init()
+        })
 }
 function addRole() {
     inquirer
