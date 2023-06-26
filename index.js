@@ -176,6 +176,7 @@ function updateEmployeeRole() {
                                 db.query(`UPDATE employees SET role_id=${newRoleID} WHERE first_name="${fname}" AND last_name="${lname}"`, (err, results) => {
                                     if (err) throw err;
                                     console.log("\nEmployee role updated successfully\n")
+                                    init()
                                 });
                             });
                         });
