@@ -33,11 +33,19 @@ function viewAllRoles() {
         console.table(data);
         init();
     });
-}
+};
 function viewAllEmployees() {
-    db.query('SELECT ')
-    return
-}
+    db.query('SELECT employees.id, employees.first_name, employees.last_name, roles.role_name, department.department_name, roles.salary, managers.full_name FROM employees JOIN roles ON employees.role_id = roles.id JOIN managers ON roles.department_id = managers.department_id JOIN department ON managers.department_id = department.id', (err, results) => {
+        // convert array of array to an array of objects to better display in the console.table() -- saved to the data array
+        var data = [];
+        results.forEach(result => {
+            let obj = { 'Employee ID': result[0], 'First Name': result[1], 'Last Name': result[2], 'Role': result[3], 'Department': result[4], 'Salary': result[5], 'Manager': result[6] }
+            data.push(obj)
+        })
+        console.table(data);
+        init();
+    });
+};
 function addDepartment() {
     return
 }
