@@ -58,7 +58,7 @@ function addDepartment() {
             db.query(`INSERT INTO department (department_name) VALUES ("${response.newDepartment}")`, (err, results) => {
                 if (err) throw err
             });
-            console.log("\nNew department added succesfully.\n")
+            console.log("\nNew department added successfully.\n")
             init()
         })
 }
@@ -92,7 +92,7 @@ function addRole() {
                     if (err) throw err
                 });
             });
-            console.log("\nNew role added succesfully.\n")
+            console.log("\nNew role added successfully.\n")
             init()
         });
 }
@@ -170,13 +170,16 @@ function updateEmployeeRole() {
                                 message: 'Select a new role to assign:',
                                 name: 'role'
                             }
-                        ]).then(role => {
-                            console.log(role)
-                        })
-                })
-                // db.query(`UPDATE employees SET role_id=${fname} WHERE first_name="${fname}" AND last_name="${lname}"`, (err, results) => {
-                //     if (err) throw err;
-                // });
+                        ]).then(answer => {
+                            db.query(`SELECT * FROM roles WHERE role_name="${answer.role}"`, (err, results) => {
+                                let newRoleID = results[0][0]
+                                db.query(`UPDATE employees SET role_id=${newRoleID} WHERE first_name="${fname}" AND last_name="${lname}"`, (err, results) => {
+                                    if (err) throw err;
+                                    console.log("\nEmployee role updated successfully\n")
+                                });
+                            });
+                        });
+                });
             });
     });
 }
