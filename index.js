@@ -97,7 +97,29 @@ function addRole() {
         });
 }
 function addEmployee() {
-    return
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                message: 'What is the employees first name?',
+                name: 'fname'
+            },
+            {
+                type: 'input',
+                message: 'What is the employees last name?',
+                name: 'lname'
+            },
+            {
+                type: 'input',
+                message: 'What is the employees role?',
+                name: 'role'
+            },
+            {
+                type: 'input',
+                message: 'Who is the employees manager?',
+                name: 'manager'
+            }
+        ]).then(response => { })
 }
 function updateEmployeeRole() {
     return
