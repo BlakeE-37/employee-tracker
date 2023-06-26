@@ -119,8 +119,18 @@ function addEmployee() {
                 message: 'Who is the employees manager?',
                 name: 'manager'
             }
-        ]).then(response => { })
-}
+        ]).then(response => {
+            db.query(`SELECT * FROM roles WHERE role_name="${response.role}"`, (err, results) => {
+                if (err) throw err;
+                let roleID = results[0][0]
+                db.query(`INSERT INTO employees (first_name, last_name, role_id) VALUES ("${response.fname}", "${response.lname}", ${roleID})`, (err, results) => {
+                    if (err) throw err
+                });
+            });
+            console.log("\nNew employee added succesfully.\n")
+            init()
+        });
+};
 function updateEmployeeRole() {
     return
 }
