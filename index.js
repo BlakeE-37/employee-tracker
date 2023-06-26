@@ -132,7 +132,32 @@ function addEmployee() {
         });
 };
 function updateEmployeeRole() {
-    return
+    db.query('SELECT * FROM employees', (err, results) => {
+        // put all emplyee names and IDs in a list for the inquirer question
+        let employeeList = [];
+        results.forEach(employee => {
+            let fullName = employee[1] + ' ' + employee[2]
+            employeeList.push(fullName)
+        });
+        inquirer
+            .prompt([
+                {
+                    type: 'list',
+                    choices: employeeList,
+                    message: 'What employee would you like to update?',
+                    name: 'name'
+                }
+            ]).then(answer => {
+                // re-split the full name for the database query
+                let nameArray = answer.name.split(' ')
+                let fname = nameArray[0];
+                let lname = nameArray[1];
+
+                db.query('', (err, results) => {
+
+                })
+            });
+    });
 }
 
 function init() {
