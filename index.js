@@ -159,7 +159,7 @@ function updateEmployeeRole() {
                     let roleNames = [];
                     // create a list to ask what role they want to change to
                     results.forEach(role => {
-                        let roleName = role[2];
+                        let roleName = role[1];
                         roleNames.push(roleName);
                     })
                     inquirer
